@@ -32,7 +32,7 @@ public class Parser {
                 inFunction = true;
                 tempFunction+= function.charAt(i);
                 i++;
-                for (int j = function.charAt(i); function.charAt(i) != ')' || function.charAt(i) != '(' ; j++) {
+                for (int j = function.charAt(i); function.charAt(i) != ')' && function.charAt(i) != '(' ; i++) {
                     tempFunction+= function.charAt(i);
                 }
                 if(function.charAt(i) == '(') {
@@ -49,17 +49,25 @@ public class Parser {
 
             if(function.charAt(i) == ')'){
                 int size = operands.size();
-                for (int j = 0; j < size ; j++) {
+                while (operands.size() > 0) {
                     numberA = operands.removeFirst();
-                    size--;
-                    numberB = operands.removeFirst();
-                    size--;
+                    if(operands.size() > 0){
+                        numberB = operands.removeFirst();
+                    }else{
+                        switch (operator.peek()){
+                            case "+":  numberB = 0; result +=        Calculator.addition(numberA, numberB); return result;
+                            case "-":  numberB = 0; result -=     Calculator.subtraction(numberA, numberB); return result;
+                            case "*":  numberB = 1; result *= Calculator.multiplicaction(numberA, numberB); return result;
+                            case "/":  numberB = 1; result /=        Calculator.division(numberA, numberB); return result;
+                        }
 
-                    switch (operator.pop()){
-                        case "+": result =        Calculator.addition(numberA, numberB); break;
-                        case "-": result =     Calculator.subtraction(numberA, numberB); break;
-                        case "*": result = Calculator.multiplicaction(numberA, numberB); break;
-                        case "/": result =        Calculator.division(numberA, numberB); break;
+                    }
+
+                    switch (operator.peek()){
+                        case "+": result +=        Calculator.addition(numberA, numberB); break;
+                        case "-": result -=     Calculator.subtraction(numberA, numberB); break;
+                        case "*": result *= Calculator.multiplicaction(numberA, numberB); break;
+                        case "/": result /=        Calculator.division(numberA, numberB); break;
                     }
                 }
             }
