@@ -34,7 +34,7 @@ public class Parser {
                 bracketsComparatorRight++;
                 inFunction = true;
 
-                for (int j = function.charAt(i); function.charAt(i) != ')' && function.charAt(i) != '('; i++) { //AKI ESTA EL BUG
+                for (int j = function.charAt(i); function.charAt(i) != ')' ; i++) { //AKI ESTA EL BUG
                     if(function.charAt(i) == '+' || function.charAt(i) == '*') {
                         operator.push(Character.toString(function.charAt(i)));
                     }
@@ -67,7 +67,7 @@ public class Parser {
                         }
                     }
                 }else {
-                    result.addFirst(doFunction(tempFunction));
+                    result.addFirst(doFunction(tempFunction)); //verify
                     operator.pop();
                     tempFunction = "";
 
