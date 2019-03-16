@@ -10,7 +10,7 @@ public class Main {
         //System.out.println(parser.arithmeticOperations(arithmethicOperation));
         //int a = Integer.parseInt("3 + 3");
        // System.out.println(3 + 3);
-        ArithmeticOperations a = new ArithmeticOperations("(+ 2 (* 2(+ 12 3)) (* 1 2 3))");
+        ArithmeticOperations a = new ArithmeticOperations("(+ (* (+ 1 2 3) 2) (+ 4 5 6) 7)");
         System.out.println(a.getTotal());
 
     }
