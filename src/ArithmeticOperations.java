@@ -198,6 +198,8 @@ public class ArithmeticOperations {
 
 
     private void doOperation(String operation){
+        LinkedList<Integer> ordered = new LinkedList<>();
+        boolean firstRun = true;
         try{
             operation = tempFunctionStack.pop();
         }catch (Exception e){
@@ -208,8 +210,12 @@ public class ArithmeticOperations {
         for (int i = 0; i <operation.length() ; i++) {
             if(Character.isDigit(operation.charAt(i))){
                 tempFunctionSize++;
+                ordered.addFirst(operands.removeLast());
             }
         }
+
+
+
         aux = currentOperator;
         try{
             currentOperator = this.operator.pop();
@@ -230,15 +236,16 @@ public class ArithmeticOperations {
         while (tempFunctionSize> 0){
             if(currentOperator == "+"){
                 if(this.tempFunctionSize > 1){
-                    total += operands.removeLast() + operands.removeLast(); tempFunctionSize -=2;
+                    total += ordered.pop() + ordered.pop(); tempFunctionSize -=2;
                 }else{
-                    total += operands.removeLast(); tempFunctionSize--;
+                    total += ordered.pop(); tempFunctionSize--;
                 }
             }else if(currentOperator == "-"){
+                total -= 0;
                 if(tempFunctionSize > 1){
-                    total -= operands.removeLast() - operands.removeLast(); tempFunctionSize -=2;
+                    total = ordered.pop() - ordered.pop(); tempFunctionSize -=2;
                 }else{
-                    total -= operands.removeLast(); tempFunctionSize--;
+                    total -= ordered.pop(); tempFunctionSize--;
                 }
             }else if(currentOperator == "*"){
                 if(tempFunctionSize> 1){
@@ -247,10 +254,17 @@ public class ArithmeticOperations {
                     total *= operands.removeLast(); tempFunctionSize --;
                 }
             }else if(currentOperator == "/"){
+                total /=1;
                 if(tempFunctionSize > 1){
-                    total = operands.removeLast() / operands.removeLast() / total; tempFunctionSize -=2;
+                    if(firstRun == true){
+                        total = ordered.pop(); tempFunctionSize -=2; //CHECK THIS
+                        firstRun = false;
+                    }else{
+                        total /= ordered.pop(); tempFunctionSize -=2; //CHECK THIS
+                    }
+
                 }else{
-                    total /= operands.removeLast(); tempFunctionSize--;
+                    total /= ordered.pop(); tempFunctionSize--; //CHECK THIS
                 }
             }
         }
