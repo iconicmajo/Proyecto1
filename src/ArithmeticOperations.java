@@ -12,7 +12,13 @@ public class ArithmeticOperations {
                     function.charAt(i) == '*' || function.charAt(i) == '/'){
                 operations.addFirst(String.valueOf(function.charAt(i)));
             }else if(Character.isDigit(function.charAt(i))){
-                operations.addFirst(String.valueOf(function.charAt(i)));
+                if(Character.isDigit(function.charAt(i + 1))){
+                    operations.addFirst(Character.toString(function.charAt(i)) + function.charAt(i + 1));
+                    i++;
+                }else{
+                    operations.addFirst(String.valueOf(function.charAt(i)));
+                }
+
             }else if(function.charAt(i) == ')'){
                 getOperations();
             }
@@ -41,7 +47,12 @@ public class ArithmeticOperations {
         }
 
         operations.addFirst(String.valueOf(result));
-        System.out.println(result);
+
+        if(operations.size() == 1){
+            System.out.println(result);
+        }
+
+
 
 
     }
