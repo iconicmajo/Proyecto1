@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class ArithmeticOperations {
@@ -14,17 +15,34 @@ public class ArithmeticOperations {
                 operations.addFirst(String.valueOf(function.charAt(i)));
             }else if(function.charAt(i) == ')'){
                 getOperations();
-                break;
             }
         }
 
-       // operations.forEach(s -> System.out.println(s));
-        //System.out.println(getOperations());
     }
 
-    public int getOperations() {
-        System.out.println(operations.peekFirst());
+    public void getOperations() {
+        LinkedList<String> orderedOperation = new LinkedList<>();
+        int result = 0;
+        String operator;
+        while (!operations.peekFirst().equals("+") && !operations.peekFirst().equals("-") && !operations.peekFirst().equals("*")
+        && !operations.peekFirst().equals("/")){
+            orderedOperation.addFirst(operations.removeFirst());
+        }
+        operator = operations.removeFirst();
+        result = Integer.parseInt(String.valueOf(orderedOperation.removeFirst()));
 
-        return 0;
+        while (orderedOperation.size() > 0){
+            switch (operator){
+                case "+":  result += Integer.parseInt(orderedOperation.removeFirst()); break;
+                case "-":  result -= Integer.parseInt(orderedOperation.removeFirst()); break;
+                case "*":  result *= Integer.parseInt(orderedOperation.removeFirst()); break;
+                case "/":  result /= Integer.parseInt(orderedOperation.removeFirst()); break;
+            }
+        }
+
+        operations.addFirst(String.valueOf(result));
+        System.out.println(result);
+
+
     }
 }
