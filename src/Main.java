@@ -6,6 +6,10 @@ public class Main {
         Parser parser = new Parser();
         Scanner readLine = new Scanner(System.in);
         Funciones funciones = new Funciones();
+        
+        System.out.println(">>: ");
+        String func  = readLine.nextLine();
+        funciones.functions(func);
 
         //String arithmethicOperation = readLine.nextLine();
         //System.out.println(parser.arithmeticOperations(arithmethicOperation));
