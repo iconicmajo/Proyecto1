@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 //E-Reference https://beginnersbook.com/2013/12/java-string-substring-method-example/
 
-public class Functions<E> {
+public class Functions extends Defun {
 
     private LinkedList<String> functionStorage;
     private LinkedList<Defun> functions;

@@ -1,17 +1,16 @@
 import java.util.Stack;
 
-public class Predicates {
+public class Predicates extends Defun {
     private Stack<String> type = new Stack<>();
     private Stack<String> predicates = new Stack<>();
 
 
-    public boolean PredicateVerification(String predicate){
-
+    public Predicates(String predicate){
         boolean lista = false;
         String predicado = predicate.replace("(", " ");
         predicado = predicado.replace(")", " ");
 
-        if (predicado.contains("'")){
+        if (predicado.contains("'")) {
             predicado = predicado.replace("'", " ");
             lista = true;
         }
@@ -25,8 +24,8 @@ public class Predicates {
         }
 
         // Ir metiendo los numeros o signos que hayan metido en el HashMap
-        for(int i  = 1; i < tipos.length; i ++) {
-            if(!tipos[i].equals("")){
+        for (int i = 1; i < tipos.length; i++) {
+            if (!tipos[i].equals("")) {
                 predicates.push(tipos[i]);
             }
 
@@ -37,18 +36,22 @@ public class Predicates {
         int numB;
         boolean result = true;
 
-        if(predicates.get(1).equals("list")){
-            lista = true;
+        try{
+            if (predicates.get(1).equals("List") || predicates.get(2).equals("List")) {
+                lista = true;
+            }
+        }catch (Exception e){
+            // if we only use (Atom number)
         }
-        switch(type.peek().toLowerCase()) {
-            case "atom":
-                if (lista == true){
-                    result = false;
-                }
 
-                else {
+        switch (predicates.get(1)) {
+            case "Atom":
+                if (lista == true) {
+                    result = false;
+                } else {
                     result = true;
                 }
+                System.out.println(result);
                 break;
 
             case "Equal":
@@ -60,16 +63,16 @@ public class Predicates {
                 else {
                     result = false;
                 }
+                System.out.println(result);
                 break;
 
-            case "list":
+            case "List":
                 if (lista == true) {
                     result = true;
-                }
-
-                else {
+                } else {
                     result = false;
                 }
+                System.out.println(result);
                 break;
 
             case "<":
@@ -81,6 +84,7 @@ public class Predicates {
                 else {
                     result = false;
                 }
+                System.out.println(result);
                 break;
 
             case ">":
@@ -93,8 +97,66 @@ public class Predicates {
                 else {
                     result = false;
                 }
+                System.out.println(result);
                 break;
         }
-        return result;
+
+        switch (predicates.get(0)) {
+            case "Atom":
+                if (lista == true) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+                System.out.println(result);
+                break;
+
+            case "Equal":
+                numB = Integer.parseInt(predicates.pop());
+                numA = Integer.parseInt(predicates.pop());
+
+                if (numA == numB) result = true;
+
+                else {
+                    result = false;
+                }
+                System.out.println(result);
+                break;
+
+            case "List":
+                if (lista == true) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+                System.out.println(result);
+                break;
+
+            case "<":
+                numB = Integer.parseInt(predicates.pop());
+                numA = Integer.parseInt(predicates.pop());
+
+                if (numA < numB) result = true;
+
+                else {
+                    result = false;
+                }
+                System.out.println(result);
+                break;
+
+            case ">":
+                numB = Integer.parseInt(predicates.pop());
+                numA = Integer.parseInt(predicates.pop());
+
+                if (numA > numB) result = true;
+
+
+                else {
+                    result = false;
+                }
+                System.out.println(result);
+                break;
+        }
     }
 }
+

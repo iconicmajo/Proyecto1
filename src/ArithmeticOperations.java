@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class ArithmeticOperations {
+public class ArithmeticOperations extends Defun {
 
     LinkedList<String> operations = new LinkedList<>();
 
