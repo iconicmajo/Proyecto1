@@ -19,14 +19,17 @@ public class Predicates {
         String tipos[] = predicado.split(" ");
 
         // Verificar si el primer signo de lo que se quiera verificar sea uno de los predicado disponibles
-        if (predicado.toLowerCase().contains("atom") || predicado.toLowerCase().contains("equal") || predicado.toLowerCase().contains("listp")
+        if (predicado.toLowerCase().contains("Atom") || predicado.toLowerCase().contains("Equal") || predicado.toLowerCase().contains("list")
                 || predicado.toLowerCase().contains("<") || predicado.toLowerCase().contains(">")) {
             type.push(tipos[1]);
         }
 
         // Ir metiendo los numeros o signos que hayan metido en el HashMap
         for(int i  = 1; i < tipos.length; i ++) {
-            predicates.push(tipos[i]);
+            if(!tipos[i].equals("")){
+                predicates.push(tipos[i]);
+            }
+
         }
 
         // Verificar si el tipo de predicado es atom, equal, list, <, > y luego hacer las comparaciones
@@ -34,7 +37,10 @@ public class Predicates {
         int numB;
         boolean result = true;
 
-        switch(type.peek()) {
+        if(predicates.get(1).equals("list")){
+            lista = true;
+        }
+        switch(type.peek().toLowerCase()) {
             case "atom":
                 if (lista == true){
                     result = false;
@@ -45,7 +51,7 @@ public class Predicates {
                 }
                 break;
 
-            case "equal":
+            case "Equal":
                 numB = Integer.parseInt(predicates.pop());
                 numA = Integer.parseInt(predicates.pop());
 
@@ -56,7 +62,7 @@ public class Predicates {
                 }
                 break;
 
-            case "listp":
+            case "list":
                 if (lista == true) {
                     result = true;
                 }
