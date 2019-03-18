@@ -14,13 +14,15 @@ import java.util.Stack;
  * ING. DOUGLAS BARRIOS
  *
  */
+
 public class Funciones {
+	
 	private String defun;
 	private String cont;
 	private Stack<String> stackFunction = new Stack<>();
     private String tempFunction = "";
-    private int numberA = 0, numberB = 0;
-	
+    private Parser parser = new Parser();
+
 	/**
 	 * @param defun
 	 * @param cont
@@ -41,28 +43,67 @@ public class Funciones {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String functions(String function, String function_name) {
+	public String functions(String func) {
 		
-		//int result = 0;
-        //boolean inFunction = false;
-		  int functionCounter = 0;
-        //String function_name = "";
-        String line = "";
+		
+        
+        String function = "";
+        String function_name= "";
+        String predicados="";
      
-        //Incicia leyendo el tipo de funcion y nombre, los separa
-        for (int i = 1; i < function.length(); i++) {
-        	int c = line.lastIndexOf(" ");
-            function = line.substring(0,c).trim();
-            function_name =line.substring(c+1).trim();
+        //Incicia leyendo el tipo de funcion y nombre, los separa para ller
+        for (int i = 1; i < func.length(); i++) {
+        	int c = func.lastIndexOf(" ");
+            function = func.substring(0,c).trim();
+            //System.out.println(function);
+            function_name =func.substring(c+1).trim();
+           // predicados = func.substring(c+2).trim();
+            
             
             //Revisa que la funcion ingresada este dentro del interprete
-            if (function.equals("defun")  || function.equals("cont") ) {
+            if (function.equals("defun")) {
                 stackFunction.push(Character.toString(function.charAt(i)));
-                
-                if (function.charAt(functionCounter + 2) == '(' || function.charAt(functionCounter + 1) == '(') {
-                   // operands.addFirst(Integer.parseInt(Character.toString(function.charAt(functionCounter))));
-                }
-                
+                	
+                	//Atom es un booleano que regresa true si es cadena de nums o char
+                	if (predicate.equals("atom")) {
+                		parser.PredicateVerification(String predicate);
+                	}
+                	
+                	//Verifica si es lista, se manda a llamar a parser donde estan los predicados
+                	if (predicados.equals("list")) {
+                		
+                		parser.PredicateVerification(String predicate);
+                	}
+                	
+                	//Regresa un true or false si son iguales o no 
+                	//Este se toma como un string aunque sean numeros, se usa lower case 
+                	if (predicados.equals("equal")) {
+                		
+                		parser.PredicateVerification(String predicate);
+                		
+                	}
+                	//Exclusivo para numeros,compara si es mayor
+                	if (predicados.equals("<")) {
+                		
+                		parser.PredicateVerification(String predicate);
+                	}
+                	
+                	//Numeros, compara si es mayor (boolean)
+                	if (predicados.equals(">")) {
+                		
+                		parser.PredicateVerification(String predicate);
+                	}
+                	
+                	//Numeros, compara si es mayor (boolean)
+                	if (predicados.equals("cond")) {
+                		System.out.println("condicionales ");
+                		
+                		
+                	}
+                	else {
+                		System.out.println("Please insert a valid predicate");
+                	}
+               
             }
             else {
             	System.out.println("Please insert a valid function");
@@ -71,8 +112,6 @@ public class Funciones {
                 }
             
         return function_name;
-		
 	}
-
 
 }
