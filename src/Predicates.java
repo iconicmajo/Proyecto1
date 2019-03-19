@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Predicates extends Defun {
+public class Predicates{
     private Stack<String> type = new Stack<>();
     private Stack<String> predicates = new Stack<>();
 

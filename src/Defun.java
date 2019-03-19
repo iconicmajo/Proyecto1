@@ -1,84 +1,46 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Defun {
+    private LinkedList<String> parameters = new LinkedList<>();
+    private LinkedList<String> tasks = new LinkedList<>();
+    private String name;
 
-    private String funName;
-    private String funParameters;
-    private String funFunctions;
-    private int parameterQuantity;
-    private LinkedList<String> parameters;
-    private LinkedList<String> funFunctionsList;
-    private ArithmeticOperations arithmeticOperations;
-    private boolean isArithmetic;
-
-    public void defineFunction(String funName, String funParameters, String funFunctions, int parameterQuantity){
-        isArithmetic = true;
-        this.funName = funName;
-        this.funParameters = funParameters;
-        this.funFunctions = funFunctions;
-        this.parameterQuantity = parameterQuantity;
-        System.out.println("Defun " + funName + funParameters + funFunctions);
-        parameters = new LinkedList<>();
-        funFunctionsList = new LinkedList<>();
-        parameters.addFirst("3");
-        parameters.addFirst("2");
-    }
-
-    public void doFunction() {
-        int counter = 0;
-        while (counter < funFunctions.length()) {
-            if (funFunctions.charAt(counter) != '(' && funFunctions.charAt(counter) != ')' && funFunctions.charAt(counter) != '<'
-                    && funFunctions.charAt(counter) != '>' && funFunctions.charAt(counter) != '=' && !funFunctions.contains("Atom")
-                    && !funFunctions.contains("List") && !funFunctions.contains("Cond") && funFunctions.charAt(counter) != ' '
-                    && funFunctions.charAt(counter) != '+' && funFunctions.charAt(counter) != '-' && funFunctions.charAt(counter) != '*'
-                    && funFunctions.charAt(counter) != '/'){
-                isArithmetic = true;
-                funFunctions = funFunctions.replace(String.valueOf(funFunctions.charAt(counter)), parameters.removeFirst().toString());
-            }else if(funFunctions.contains("Cond") && !funFunctions.contains("Atom") && !funFunctions.contains("List")) {
-                isArithmetic = false;
-                if (counter == 0) {
-                    counter = 6;
-                }
-                if (funFunctions.charAt(counter) != '(' && funFunctions.charAt(counter) != ')' && funFunctions.charAt(counter) != '<'
-                        && funFunctions.charAt(counter) != '>' && funFunctions.charAt(counter) != '=' && funFunctions.charAt(counter) != ' '
-                        && funFunctions.charAt(counter) != '+' && funFunctions.charAt(counter) != '-' && funFunctions.charAt(counter) != '*'
-                        && funFunctions.charAt(counter) != '/')
-                    funFunctions = funFunctions.replace(String.valueOf(funFunctions.charAt(counter)), parameters.removeFirst().toString());
-
-            }else if((funFunctions.contains("Atom") && funFunctions.contains("Cond") && !funFunctions.contains("List")) || funFunctions.contains("List") && funFunctions.contains("Cond") && !funFunctions.contains("Atom")){
-                if(counter == 0){
-                    counter =13;
-                }
-                if (funFunctions.charAt(counter) != '(' && funFunctions.charAt(counter) != ')' && funFunctions.charAt(counter) != '<'
-                        && funFunctions.charAt(counter) != '>' && funFunctions.charAt(counter) != '=' && funFunctions.charAt(counter) != ' '
-                        && funFunctions.charAt(counter) != '+' && funFunctions.charAt(counter) != '-' && funFunctions.charAt(counter) != '*'
-                        && funFunctions.charAt(counter) != '/' && funFunctions.charAt(counter) != '\'')
-                    funFunctions = funFunctions.replace(String.valueOf(funFunctions.charAt(counter)), parameters.removeFirst().toString());
-                isArithmetic = false;
-            }else if(funFunctions.contains("Atom") && funFunctions.contains("List")){
-                if(counter == 0){
-                    counter = 18;
-                }
-                if (funFunctions.charAt(counter) != '(' && funFunctions.charAt(counter) != ')' && funFunctions.charAt(counter) != '<'
-                        && funFunctions.charAt(counter) != '>' && funFunctions.charAt(counter) != '=' && funFunctions.charAt(counter) != ' '
-                        && funFunctions.charAt(counter) != '+' && funFunctions.charAt(counter) != '-' && funFunctions.charAt(counter) != '*'
-                        && funFunctions.charAt(counter) != '/' && funFunctions.charAt(counter) != '\''){
-                    funFunctions = funFunctions.replace(String.valueOf(funFunctions.charAt(counter)), parameters.removeFirst().toString());
-                    isArithmetic = false;
-                }
-
-            }
-
-            counter++;
-        }
-        System.out.println(funFunctions);
-        funFunctionsList.addFirst(funFunctions);
-        FactoryFunction.FactoryFunction(isArithmetic, funFunctionsList.peekFirst());
-
-    }
-
-    public void sendParameters(LinkedList parameters){
+    public Defun(String name, LinkedList<String> parameters, LinkedList<String> tasks){
+        this.name = name;
         this.parameters = parameters;
+        this.tasks = tasks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void getTasks() {
+        String temp = "";
+        for (int i = 0; i <  tasks.size(); i++) {
+            temp+= tasks.get(i);
+        }
 
     }
+
+    public LinkedList<String> getNewfunctions(String[] parameterSustitucion) {
+        LinkedList<String> newFunction = new LinkedList<>();
+        String temp = "";
+
+        for (int i = 0; i < tasks.size() ; i++) {
+            temp = tasks.get(i);
+            for (int j = 0; j < parameters.size() ; j++) {
+                if(temp.contains(parameters.get(j))){
+                    temp = temp.replaceAll(parameters.get(j), parameterSustitucion[j]);
+                }
+            }
+            newFunction.addLast(temp);
+        }
+        return newFunction;
+    }
+
+
+
+
 }
