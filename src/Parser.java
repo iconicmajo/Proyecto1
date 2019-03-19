@@ -17,30 +17,34 @@ public class Parser {
         tasks = new LinkedList<>();
 
         //=======================================================================================
-        function = function.substring(function.indexOf(" ") + 1);
-        functionName = function.substring(0, (function.indexOf(" ")));
-        function = function.substring(function.indexOf(" ") + 1);
-        functionParameters = function.substring(0, (function.indexOf(")") + 1));
-        functionTasks = function.trim().substring(function.indexOf("\n"));
-        System.out.println("DEFUN " + functionName + " " +  functionParameters + functionTasks);
+        try {
+
+            function = function.substring(function.indexOf(" ") + 1);
+            functionName = function.substring(0, (function.indexOf(" ")));
+            function = function.substring(function.indexOf(" ") + 1);
+            functionParameters = function.substring(0, (function.indexOf(")") + 1));
+            functionTasks = function.trim().substring(function.indexOf("\n"));
+            System.out.println("DEFUN " + functionName + " " + functionParameters + functionTasks);
 
 
+            functionParameters = functionParameters.substring(1, functionParameters.indexOf(")"));
+            System.out.println(functionParameters);
+            String[] parametersArray = functionParameters.split(" ");
+            String[] functionsArray = functionTasks.split("\n");
 
-        functionParameters = functionParameters.substring(1, functionParameters.indexOf(")"));
-        System.out.println(functionParameters);
-        String[] parametersArray = functionParameters.split(" ");
-        String[] functionsArray = functionTasks.split("\n");
-
-        for (int i = 0; i < parametersArray.length ; i++) {
-            parameters.addLast(parametersArray[i]);
-        }
-
-        for (int i = 0; i < functionsArray.length ; i++) {
-            if(!functionsArray[i].equals("")){
-                tasks.addLast(functionsArray[i]);
+            for (int i = 0; i < parametersArray.length; i++) {
+                parameters.addLast(parametersArray[i]);
             }
-        }
 
-        Functions.defFun(new Defun(functionName, parameters, tasks));
+            for (int i = 0; i < functionsArray.length; i++) {
+                if (!functionsArray[i].equals("")) {
+                    tasks.addLast(functionsArray[i]);
+                }
+            }
+
+            Functions.defFun(new Defun(functionName, parameters, tasks));
+        }catch (Exception e){
+            System.out.println("Error, check");
+        }
     }
 }

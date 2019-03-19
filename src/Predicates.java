@@ -18,7 +18,7 @@ public class Predicates{
         String tipos[] = predicado.split(" ");
 
         // Verificar si el primer signo de lo que se quiera verificar sea uno de los predicado disponibles
-        if (predicado.toLowerCase().contains("Atom") || predicado.toLowerCase().contains("Equal") || predicado.toLowerCase().contains("list")
+        if (predicado.toLowerCase().contains("Atom") || predicado.toLowerCase().contains("Equal") || predicado.toLowerCase().contains("List")
                 || predicado.toLowerCase().contains("<") || predicado.toLowerCase().contains(">")) {
             type.push(tipos[1]);
         }
