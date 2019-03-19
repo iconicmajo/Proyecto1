@@ -6,7 +6,7 @@ public class ArithmeticOperations {
 
     private LinkedList<String> operations = new LinkedList<>(); //Linked list used to store the Arithmetic operations
     private String numero = ""; //stores a number (when is 2 digit or longer)
-
+    public float resultTest; //used for the test only
     /**
      * Constructor of the class used to evaluate numbers and show a result
      * @param function
@@ -42,7 +42,7 @@ public class ArithmeticOperations {
     /**
      * Method used to obtain the result of the operation, returns nothing
      */
-    private void getOperations() {
+    public float getOperations() {
            try {
                LinkedList<String> orderedOperation = new LinkedList<>(); //List the order the numbers
 
@@ -78,6 +78,8 @@ public class ArithmeticOperations {
 
                if (operations.size() == 1) {
                    System.out.println(result); //prints out the result
+                   this.resultTest = result;
+                   return result;
                }
 
 
@@ -85,5 +87,6 @@ public class ArithmeticOperations {
 
            }
 
+    return 0;
     }
 }

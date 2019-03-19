@@ -12,9 +12,12 @@ public class Main {
         //Operation MUST have this structure. Must define the DEFUN NAME (PARAMETERS)\n +
         //and in the second line must define a function
         //in the third line must define another function etc etc etc
-        String operation = "(DEFUN suma ()\n" +
-                "(COND ((< 1( 2)\n" +
+        String operation = "(DEFUN VERIFICADOR ()\n" +
+                "(COND ((< 3 2)\n" +
                 "(+ 3 2)"; //function
+
+        /*String operation = "DEFUN FTOC (TEMP)\n" +
+                "(/ (- TEMP 32) 1.8))";*/
         Scanner sc = new Scanner(System.in); // Scanner used to read execute the function
         int counter = 0; //counter used for GUI reasons
         while (true) {
@@ -37,7 +40,7 @@ public class Main {
                 j++;
             }
 
-            Functions.doFun(name, parameters); //EXECUTES THE FUNCTION
+            Functions.doFun(name, parameters); //EXECUTES THE FUNCION
             counter++;
         }
     }
