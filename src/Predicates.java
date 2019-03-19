@@ -1,11 +1,15 @@
 import java.util.Stack;
 
-public class Predicates{
+public class Predicates {
     private Stack<String> type = new Stack<>();
     private Stack<String> predicates = new Stack<>();
+    public static boolean result;
 
+    public Predicates(String predicate) {
+        result = result(predicate);
+    }
 
-    public Predicates(String predicate){
+    public boolean result(String predicate) {
         boolean lista = false;
         String predicado = predicate.replace("(", " ");
         predicado = predicado.replace(")", " ");
@@ -36,11 +40,11 @@ public class Predicates{
         int numB;
         boolean result = true;
 
-        try{
+        try {
             if (predicates.get(1).equals("List") || predicates.get(2).equals("List")) {
                 lista = true;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             // if we only use (Atom number)
         }
 
@@ -51,8 +55,9 @@ public class Predicates{
                 } else {
                     result = true;
                 }
+
                 System.out.println(result);
-                break;
+                return result;
 
             case "Equal":
                 numB = Integer.parseInt(predicates.pop());
@@ -157,6 +162,6 @@ public class Predicates{
                 System.out.println(result);
                 break;
         }
+        return result;
     }
 }
-

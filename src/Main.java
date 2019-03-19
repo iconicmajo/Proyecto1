@@ -6,15 +6,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        /*String operation = "(DEFUN FTOC (TEMP a b c d)\n" +
-                "(/ (- TEMP 32) 1.8)\n" +
-                "(Atom '(a b))\n" +
-                "(+ c d)";*/
+        String operation = "(DEFUN suma ()\n" +
+                "(COND ((< 1( 2)\n" +
+                "(+ 3 2)";
         Scanner sc = new Scanner(System.in);
         int counter = 0;
         while (true) {
             System.out.println("[" + counter + "]> ");
-            String operation = sc.nextLine();
+            //String operation = sc.nextLine();
             Parser.parse(operation);
 
             String function = sc.nextLine();
@@ -30,7 +29,12 @@ public class Main {
                 parameters[j] = divider[i];
                 j++;
             }
-            Functions.doFun(name, parameters);
+            boolean isCond = false;
+
+            if(function.contains("COND")){
+                isCond = true;
+            }
+            Functions.doFun(name, parameters, isCond);
             counter++;
         }
     }
