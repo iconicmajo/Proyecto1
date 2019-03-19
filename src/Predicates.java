@@ -1,25 +1,36 @@
 import java.util.Stack;
 
 public class Predicates {
-    private Stack<String> type = new Stack<>();
-    private Stack<String> predicates = new Stack<>();
-    public static boolean result;
+    private Stack<String> type = new Stack<>(); //Stack used to store the predicate type
+    private Stack<String> predicates = new Stack<>(); //store the predicates
+    public static boolean result; //returns true or false, depending on the result
 
+    /**
+     * Constructor
+     * @param predicate
+     */
     public Predicates(String predicate) {
-        result = result(predicate);
+        result = result(predicate); //obtains the result from the result method
     }
 
-    public boolean result(String predicate) {
-        boolean lista = false;
-        String predicado = predicate.replace("(", " ");
+    /**
+     * Method used to get the result
+     * @param predicate
+     * @return true or false
+     * @Pre Predicate expression must not be null
+     */
+    private boolean result(String predicate) {
+        boolean lista = false; //checks if it is a list or not
+        String predicado = predicate.replace("(", " "); //Predicate
         predicado = predicado.replace(")", " ");
 
+        //Verifier
         if (predicado.contains("'")) {
             predicado = predicado.replace("'", " ");
             lista = true;
         }
 
-        String tipos[] = predicado.split(" ");
+        String tipos[] = predicado.split(" "); //Divider
 
         // Verificar si el primer signo de lo que se quiera verificar sea uno de los predicado disponibles
         if (predicado.toLowerCase().contains("Atom") || predicado.toLowerCase().contains("Equal") || predicado.toLowerCase().contains("List")
@@ -48,6 +59,7 @@ public class Predicates {
             // if we only use (Atom number)
         }
 
+        //Switch
         switch (predicates.get(1)) {
             case "Atom":
                 if (lista == true) {
